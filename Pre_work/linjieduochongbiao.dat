@@ -1,0 +1,53 @@
+#include  <stdio.h>
+#include  <stdlib.h>
+#define  MAXNUM  20
+
+
+//结点及关系定义
+typedef  struct  InfoType  //结点信息
+{   int  num;
+    string  name;
+    int  ES;  //最早开始
+    int  LS;  //最迟开始
+    int  TF;  //总时差
+    int  EF;  //最早完成
+    int  LF;  //最迟完成
+    int  FF;  //自由时差
+    int  LT;  //持续时间
+}；
+
+typedef  emnu  {unvisited,visited}  VisitIf;
+
+typedef  struct  ArcNode   //邻接多重表结点
+{   VisitIf  mark;  //访问标记
+    int  fvex,tvex;  //前后结点编号
+    struct  ArcNode  *flink,*tlink;  //
+    InfoType  *info;
+} ArcNode;
+
+typedef  struct  VexNode  //头结点
+{   int  data;  //结点个数
+    ArcNode  *firstvex;  //指向第一个结点
+}VexNode;
+
+typedef  struct  
+{   VexNode  adjlist[MAXNUM];  //adjlist[0]不用
+    int  vexnum,edgenem;
+}ALGraph;
+
+
+
+
+//拓扑排序
+void  TopologicalSort(ALGraph  G)
+{   FindInDegree(G,indegree);  //统计各顶点的入度
+    
+}
+
+
+
+
+
+
+
+

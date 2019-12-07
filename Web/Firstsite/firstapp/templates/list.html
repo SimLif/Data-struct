@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>List</title>
+        <link rel="stylesheet" href="{% static 'css/semantic.css' %}" media="screen" title="no title" charset="utf-8">
+        <link href="https://fonts.googleapis.com/css?family=Oswald|Raleway" rel="stylesheet">
+
+        <style type="text/css">
+            .ui.very.padded.basic.segments.container.content{
+            margin-top: 100px;
+        }
+        </style> 
+    </head>
+    <body>
+        <div class="ui inverted top borderless red fixed menu">
+            <div class="right menu">
+                    <div class="item">
+                        <h5 class="ui inverted header">
+                            <span style="margin-right:20px;">{{ request.user.username }}</span>
+                            <div class="ui mini circular image">
+                                    <img src="http://semantic-ui.com/images/avatar/small/matt.jpg" alt="" />
+                            </div>
+                        </h5>
+                    </div>
+                    <div class="item">
+                        <a href="{% url 'logout' %}" class="ui inverted circular button">Logout</a>
+                    </div>
+            </div>
+        </div>
+        <div class="ui very padded basic segments container content">
+            <div class="ui middle aligned divided list">
+                {% for project in projectlist %}
+                <div class="item">
+                    <a class="ui red ribbon label">{{ project.id }}</a>
+                    <div class="right floated content">
+                        <div class="ui button">Delete</div>
+                    </div>
+                    <div class="right floated content">
+                        <div class="ui button">Edit</div>
+                    </div>
+                    <div class="right floated content">
+                        <div class="ui labeled button" tabindex="0">
+                            <div class="ui basic blue button">
+                                <i class="th list icon"></i> Pre_work
+                            </div>
+                            <a class="ui basic left pointing blue label">
+                                {{ project.pre_work }}
+                            </a>
+                        </div>
+                    </div>
+                    <div class="right floated content">
+                        <div class="ui labeled button" tabindex="0">
+                            <div class="ui orange button">
+                                <i class=""></i> manHour
+                            </div>
+                            <a class="ui basic orange left pointing label">
+                                {{ project.man_hour }}
+                            </a>
+                        </div>
+                    </div>
+                    <div class="content">
+                        <p><span class="ui medium text">{{ project.project_name }}</span></p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>   
+        </div>
+
+        <div class="ui bottom fixed menu">
+            <div class="center menu">
+                    <form class="ui form error" method="post">
+                            {% if form.errors %}
+                                <div class="ui error message">
+                                    {{ form.errors }}
+                                </div>
+                                {% for field in form  %}
+                                    <div class="{{ field.errors|yesno:'error, ' }} field">
+                                        {{ field.label }}
+                                        {{ field }}
+                                    </div>
+                                {% endfor %}
+                            {% else %}
+                                <div class="field">
+                                    <div class="three fields">
+                                        {% for field in form  %}
+                                            <div class="field">
+                                                {{ field.label }}
+                                                {{ field }}
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>    
+                            {% endif %}
+                            {% csrf_token %}
+                            <div class="right menu">
+                                <button class="ui inverted red circular right floated button" type="submit">Done</button>    
+                            </div>
+                    </form>
+            </div>
+            
+        </div>
+    </body>
+</html>
